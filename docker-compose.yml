@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app: &app
+    build: .
+    volumes:
+      - ./:/app
+      - deps:/app/deps
+      - node_modules:/app/assets/node_modules
+      - build:/app/_build
+      - elixir_ls:/app/.elixir_ls
+    command: elixir --sname app --cookie local -S mix phx.server
+    ports:
+      - 4005:4000
+  worker:
+    << : *app
+    command: elixir --sname worker --cookie local -S mix phx.server
+    depends_on:
+      - app
+    ports:
+      - 4006:4000
+
+volumes:
+  deps:
+  build:
+  elixir_ls:
+  node_modules:

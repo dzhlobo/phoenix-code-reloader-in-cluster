@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+sed -i -e 's/Phoenix CodeReloader/world/g' lib/demo_web/controllers/page_controller.ex
+docker-compose down -v --rmi local

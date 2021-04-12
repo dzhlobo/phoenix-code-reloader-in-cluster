@@ -1,0 +1,5 @@
+#!/bin/zsh
+set -e
+
+command="docker-compose run --rm app /bin/sh -c '${@}'"
+eval $command

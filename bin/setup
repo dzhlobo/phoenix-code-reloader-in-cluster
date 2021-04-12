@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+docker-compose build
+bin/app mix deps.get
+bin/app "cd assets && npm install"

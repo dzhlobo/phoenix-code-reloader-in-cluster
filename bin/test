@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+log() {
+  printf "\n${1}\n\n"
+}
+
+wait() {
+  read -n 1 -s -r -p "Press any key to continue"; echo
+}
+
+log "Right after startup:"
+
+curl_app=`curl -s http://localhost:4005`
+printf "curl localhost:4005 is:\n${curl_app}\n\n"
+
+curl_worker=`curl -s http://localhost:4006`
+printf "curl localhost:4006 is:\n${curl_worker}\n\n"
+
+wait
+
+log "Changing lib/demo_web/controllers/page_controller.ex to return another string"
+sed -i -e 's/world/Phoenix CodeReloader/g' lib/demo_web/controllers/page_controller.ex
+log "lib/demo_web/controllers/page_controller.ex is changed"
+
+wait
+
+log "After changing lib/demo_web/controllers/page_controller.ex:"
+
+curl_app=`curl -s http://localhost:4005`
+printf "curl localhost:4005 is:\n${curl_app}\n\n"
+
+curl_worker=`curl -s http://localhost:4006`
+printf "curl localhost:4006 is:\n${curl_worker}\n\n"
+
+log "Expected: to see the same result"
+log "Got: localhost:4006 is not updated"
+
+wait
+
+log "Stop docker compose and run bin/clean in order to remove docker containers, volumes, and built image"

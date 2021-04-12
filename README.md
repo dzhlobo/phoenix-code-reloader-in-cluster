@@ -1,6 +1,6 @@
 # Phoenix CodeReloader doesn't reload code for different instances of the same app running simultaneously
 
-This is a demo app that demostrates a bug in Phoenix CodeReloader.
+This is a demo app that demostrates a [bug in Phoenix CodeReloader](https://github.com/phoenixframework/phoenix/issues/4292).
 
 If 2 or more running instances of the app share the same `_build` folder, Phoenix CodeReloader doesn't work properly. It recompiles and reloads code after changes only for the app that first receive an http request (the one that first hits CodeReloader's plug). Since `_build` dir is shared, the code for the second instance is also recompiled but it never gets reloaded due to the current (April 13, 2021) implementation of Phoenix.CodeReloader.Server.
 

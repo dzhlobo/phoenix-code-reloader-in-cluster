@@ -1,4 +1,4 @@
-# Phoenix CodeReloader doesn't reload the code for an app on different nodes in the same cluster
+# Phoenix CodeReloader doesn't reload code for different instances of the same app running simultaneously
 
 This is a demo app that demostrates a bug in Phoenix CodeReloader.
 
